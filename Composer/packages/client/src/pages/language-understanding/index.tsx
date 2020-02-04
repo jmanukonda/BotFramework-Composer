@@ -139,9 +139,11 @@ const LUPage: React.FC<DefineConversationProps> = props => {
         </div>
         <div css={contentEditor}>
           {editMode ? (
-            <Suspense fallback={<LoadingSpinner />}>
-              <CodeEditor file={luFile} onChange={onChange} errorMsg={errorMsg} />
-            </Suspense>
+            luFile ? (
+              <Suspense fallback={<LoadingSpinner />}>
+                <CodeEditor file={luFile} onChange={onChange} errorMsg={errorMsg} />
+              </Suspense>
+            ) : null
           ) : (
             <TableView activeDialog={activeDialog} onClickEdit={onTableViewClickEdit} />
           )}
