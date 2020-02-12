@@ -20,6 +20,12 @@ export interface LuIntent {
 
 const NEWLINE = '\n';
 
+function isValid(diagnostics: any[]) {
+  return diagnostics.every(item => {
+    item.Severity !== 'ERROR';
+  });
+}
+
 export function textFromIntent(intent: LuIntent | null, secondary = false): string {
   if (!intent || isEmpty(intent)) return '';
   const { Name, Body } = intent;
@@ -69,8 +75,10 @@ export function updateIntent(content: string, intentName: string, intent: LuInte
   let targetSectionContent;
   const updatedSectionContent = textFromIntent(intent);
   const resource = luParser.parse(content);
-  const { Sections } = resource;
-
+  const { Sections, Errors } = resource;
+  const updateSectionParsed = luParser.parse(updatedSectionContent);
+  // if has error, do nothing.
+  if (isValid(updateSectionParsed.Errors) === false || isValid(Errors) === false) return content;
   // if intent is null, do remove
   // if remove target not exist return origin content;
   if (!intent || isEmpty(intent)) {

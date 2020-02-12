@@ -79,6 +79,40 @@ describe('LU Section CRUD test', () => {
     expect(luresource.Sections[1].UtteranceAndEntitiesMap[2].utterance).toEqual('check my mail box please');
   });
 
+  it('update section with invalid lu syntax', () => {
+    const intentName = 'CheckEmail';
+
+    const validFileContent = `#CheckEmail
+- check my email
+- show my emails`;
+
+    const validIntent = {
+      Name: 'CheckEmail',
+      Body: `- check my email
+- show my emails
+@`,
+    };
+
+    const invalidFileContent = `#CheckEmail
+    - check my email
+    - show my emails
+    @`;
+    const invalidIntent = {
+      Name: 'CheckEmail',
+      Body: `- check my email
+- show my emails
+@`,
+    };
+
+    // intent invalid
+    const updatedContent2 = updateIntent(validFileContent, intentName, invalidIntent);
+    expect(updatedContent2).toEqual(validFileContent);
+
+    // file invalid
+    const updatedContent3 = updateIntent(invalidFileContent, intentName, validIntent);
+    expect(updatedContent3).toEqual(invalidFileContent);
+  });
+
   it('delete section test', () => {
     const intentName = 'CheckEmail';
     const fileContentUpdated = removeIntent(fileContent, intentName);
