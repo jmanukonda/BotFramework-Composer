@@ -8,6 +8,7 @@ import { FunctionComponent } from 'react';
 import { InitNodeSize } from '../../../constants/ElementSizes';
 import { ElementIcon } from '../../../utils/obiPropertyResolver';
 import { Icon } from '../../decorations/icon';
+import { MultiLineDiv } from '../../elements/styledComponents';
 
 const boxWidth = InitNodeSize.width;
 const boxHeight = InitNodeSize.height;
@@ -70,18 +71,37 @@ export const FormCard: FunctionComponent<NodeProps> = ({
           fontSize: '12px',
           lineHeight: '14px',
           color: 'black',
+          display: 'flex',
+          alignItems: 'center',
+          paddingLeft: '8px',
         }}
       >
+        {icon && icon !== ElementIcon.None && (
+          <div
+            css={{
+              width: 16,
+              height: 16,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginRight: '5px',
+            }}
+          >
+            <Icon icon={icon} color={iconColor} size={iconSize || 16} />
+          </div>
+        )}
         <div
           css={{
-            padding: '4px 8px',
-            fontSize: '12px',
-            fontFamily: 'Segoe UI',
-            lineHeight: '14px',
-            overflow: 'hidden',
+            height: '100%',
+            width: 'calc(100% - 20px)',
+            whiteSpace: 'nowrap',
             textOverflow: 'ellipsis',
-            width: 'calc(100% - 40px)',
-            whiteSpace: 'pre',
+            overflow: 'hidden',
+            fontSize: '12px',
+            lineHeight: '14px',
+            fontFamily: 'Segoe UI',
+            padding: '7px 0 9px 0',
+            boxSizing: 'border-box',
           }}
         >
           {header}
@@ -95,6 +115,7 @@ export const FormCard: FunctionComponent<NodeProps> = ({
           height: contentHeight,
         }}
       >
+        {children}
         <div
           css={{
             fontWeight: 400,
@@ -106,37 +127,8 @@ export const FormCard: FunctionComponent<NodeProps> = ({
             alignItems: 'center',
           }}
         >
-          {icon && icon !== ElementIcon.None && (
-            <div
-              css={{
-                width: 16,
-                height: 16,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginRight: '5px',
-              }}
-            >
-              <Icon icon={icon} color={iconColor} size={iconSize || 16} />
-            </div>
-          )}
-          <div
-            css={{
-              height: '100%',
-              width: 'calc(100% - 20px)',
-              whiteSpace: 'nowrap',
-              textOverflow: 'ellipsis',
-              overflow: 'hidden',
-              fontSize: '12px',
-              lineHeight: '19px',
-              fontFamily: 'Segoe UI',
-            }}
-            title={typeof label === 'string' ? label : ''}
-          >
-            {label}
-          </div>
+          <MultiLineDiv title={typeof label === 'string' ? label : ''}>{label}</MultiLineDiv>
         </div>
-        {children}
       </div>
     </div>
   );

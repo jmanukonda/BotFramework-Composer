@@ -2,8 +2,8 @@
 // Licensed under the MIT License.
 
 export const InitNodeSize = {
-  width: 200,
-  height: 48,
+  width: 300,
+  height: 60,
 };
 
 export const DiamondSize = {
@@ -29,11 +29,11 @@ export const TriggerSize = InitNodeSize;
 export const TerminatorSize = { width: 16, height: 16 };
 
 export const ChoiceInputSize = {
-  width: 155,
-  height: 22,
+  width: 284,
+  height: 20,
 };
 
-export const ChoiceInputMarginTop = 8;
+export const ChoiceInputMarginTop = 4;
 export const ChoiceInputMarginBottom = 10;
 
 export const EventNodeSize = {
